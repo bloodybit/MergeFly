@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row-fluid">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <h1 class="page-header">Documents</h1>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="doc in docs" style="color:#ffffff">
+        <div class="panel panel-default" style="background-color:{{doc.category_colour}}">
+          <div class="panel-body warning">
+            <span class="label label-primary tags pull-right" style="background-color:{{doc.category_colour}}">{{doc.category_name}}</span>
+            <div class="caption" style="height:120px;">
+              <h4 class="card-title">{{doc.name | cut:true:50:' ...'}}</h4>
+
+              <p class="card-text">{{doc.creationdate}}</p>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button ng-click="goto('doc',doc.id)" class="btn btn-secondary btn-sm">Go to doc</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

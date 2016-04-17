@@ -1,0 +1,118 @@
+<div class="container homepage">
+  <div class="row homepage-content" style="padding:0 10px;">
+    <div class="col-md-3 col-xs-12 col-sm-4 col-lg-3  aside">
+      <h3 class="">Currenly live</h3>
+
+      <div class="docs-cont">
+        <div class="media clearfix doc-thumb-container" ng-if="documenti.length != 0" ng-repeat="doc in documenti"  style="position:relative;" ng-click="goto('livedoc',doc.id)">
+          <div class="pull-left media-top">
+            <img class="media-object mg-responsive doc-img" src="css/img/document1.png" alt="...">
+          </div>
+          <div class="" style="padding:5px 0px;">
+            <h4 class="">{{doc.name}}</h4>
+            <span class="label label-primary tags" style="background-color:{{doc.category_colour}}">{{doc.category_name}}</span>
+          </div>
+          <span style="position:absolute; height:100%; width:8px; left:0; top:0;background-color:{{doc.category_colour}}; ">
+          </span>
+        </div>
+        <div ng-if="documenti.length == 0" class="media clearfix">
+          <div class="text-center">
+            <img class="media-object mg-responsive" style="max-width:130px; width:80%; margin: 30px auto;" src="css/img/document4.png" alt="...">
+          </div>
+          <div class="text-center text-muted " ng-click="">
+            <h2 class="">Empty</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 hidden-xs-down col-sm-8 col-lg-9  main-content" style="background-color: transparent;">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="jumbotron" style="background-color:transparent;color:#ffffff;">
+            <h1><b>Welcome, {{user.name}}<b/></h1>
+            <p>
+              Mergefy is a platform that alows you to create interactive documents.
+            </p>
+            <p>
+              During an event, you can write whatever you want and see what other partecipants are writing at the same time. In addition
+              you can import from other documents what you like or simpli missed.
+            </p>
+            <p>
+              Don't miss a word! <a href="#/events"><button class="btn btn-secondary" >Start</button></a>
+            </p>
+          </div>
+          <div class="jumbotron" style="margin-top:0; padding-top:0; background-color:transparent;color:#ffffff;">
+            <h1 style=""><div class="glyphicon glyphicon-time"></div> {{clock}}</h1>
+            <h2 style=""><div class="glyphicon glyphicon-calendar"></div> {{date}}</h2>
+          </div>
+        </div>
+        <div class="col-md-4 ">
+          <div class="" style="background-color:transparent;color:#ffffff;">
+            <h3 class="">Invitations</h3>
+            <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" >
+                <button type="button" ng-class="invitationNav ? '' : 'transparent' " class="btn btn-secondary" ng-click="toggleInvitations(true)">Events</button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary" ng-class="invitationNav ? 'transparent' : '' " ng-click="toggleInvitations(false)">Groups</button>
+              </div>
+
+            </div>
+            <div lass="pill-content" ng-show="invitationNav">
+              <div class="pill-pane active" id="events">
+                <div ng-repeat="event in events" class="" ng-click="goto('event', event.event_id)" style="border-bottom: solid 0.5px;">
+                  <h4>  {{event.event_name}}</h4>
+
+                  <div ng-switch="event.status">
+                    <p class="small">
+                      Status: <label ng-switch-when="accepted" class="label label-success tags">{{event.status}}</label>
+                      <label ng-switch-when="waiting" class="label label-warning tags">{{event.status}}</label>
+                      <label ng-switch-when="declined" class="label label-danger tags">{{event.status}}</label>
+                    </p>
+
+                  </div>
+                </div>
+                <div ng-if="events.length == 0" class="media clearfix">
+                  <div class="text-center">
+                    <img class="media-object mg-responsive" style="max-width:80px; width:80%; margin: 50px auto 20px auto;" src="css/img/notification1.png" alt="...">
+                  </div>
+                  <div class="text-center" ng-click="">
+                    <p class="">No new event invitation.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div lass="pill-content" ng-hide="invitationNav">
+              <div class="pill-pane active" id="groups">
+                <div ng-repeat="group in groups" class=""  style="border-bottom: solid 0.5px;">
+                  <div class="btn-group pull-right" role="group" ng-show="group.accepted == '0'">
+                    <button type="button" class="btn btn-secondary btn-xs transparent" ng-click="acceptMembership(group.id)">Accept</button>
+                    <button type="button" class="btn btn-secondary btn-xs transparent" ng-click="refuseMembership(group.id)">Refuse</button>
+                  </div>
+                  <div ng-click="goto('group', group.id)">
+                    <h4>{{group.name}}</h4>
+                    <p>
+                      {{group.description}}
+                    </p>
+                  </div>
+
+                </div>
+                <div ng-if="groups.length == 0" class="media clearfix">
+                  <div class="text-center">
+                    <img class="media-object mg-responsive" style="max-width:80px; width:80%; margin: 50px auto 20px auto;" src="css/img/notification1.png" alt="...">
+                  </div>
+                  <div class="text-center" ng-click="">
+                    <p class="">No new group invitation.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

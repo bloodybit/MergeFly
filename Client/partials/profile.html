@@ -1,0 +1,113 @@
+<div class="container" style="margin-top:30px">
+  <div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8 col-sm-12 col-xs-12">
+
+      <div class="panel">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-8">
+              <div class="row">
+                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                  <h4 >Name:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4 ng-hide="clicked">{{user.name}}</h4>
+                  <input type="text" class="form-control" ng-show="clicked" ng-model="user.name">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                  <h4>Lastname:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4 ng-hide="clicked">{{user.lastname}}</h4>
+                  <input type="text" class="form-control" ng-show="clicked" ng-model="user.lastname">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                  <h4>Mail:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4 ng-hide="clicked">{{user.mail}}</h4>
+                  <input type="text" class="form-control" ng-show="clicked" ng-model="user.mail">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4  col-xs-4 col-sm-4 text-right">
+                  <h4>Born date:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4 ng-hide="clicked">{{user.born}}</h4>
+                  <input type="text" class="form-control" ng-show="clicked" ng-model="user.born">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                  <h4>Subscription date:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4> {{user.subscriptiondate}}</h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-xs-4 col-sm-4 text-right">
+                  <h4>Type:</h4>
+                </div>
+                <div class="col-md-8 col-xs-8 col-sm-8">
+                  <h4 ng-switch on="user.type">
+                    <span ng-switch-when="basic" class="label label-primary tags">basic</span>
+                    <span ng-switch-when="premium" class="label label-success tags">premium</span>
+                    <span ng-switch-when="admin" class="label label-warning tags">admin</span>
+                  </h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 text-center">
+                  <h2><strong> {{docs.length}} </strong></h2>
+                  <p><small>Documents</small></p>
+                  <button class="btn btn-secondary btn-block" ng-click="goto('home')"><span class="fa fa-file-word-o"></span> View</button>
+                </div><!--/col-->
+                <div class="col-xs-12 col-sm-4 text-center">
+                  <h2><strong>{{groups.length}}</strong></h2>
+                  <p><small>Groups</small></p>
+                  <button class="btn btn-secondary btn-block" ng-click="goto('groups')"><span class="fa fa-users"></span> View </button>
+                </div><!--/col-->
+              </div>
+
+
+
+            </div>
+            <div class="panel-footer col-xs-12 col-sm-4 col-md-4 text-center">
+              <img ng-src="{{user.image_profile}}" alt="" class="center-block  img-responsive"><!--img-circle-->
+              <div ng-show="clicked">
+                <p>Upload different photo</p>
+                <input type="file" base-sixty-four-input class="form-control-file block well well-sm col-sm-12" id="exampleInputFile" ng-model="user.content">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-2 col-md-offset-10 text-right">
+                <button class="btn  btn-secondary" ng-hide="clicked"ng-click="edit()"><span class="glyphicon glyphicon-open"></span> Edit </button>
+              </div>
+              <div class="col-md-4 col-md-offset-8 text-right">
+                <button class="btn  btn-secondary" ng-show="clicked" ng-click="update(user)"><span class="fa fa-cogs"></span> Save </button>
+                <button class="btn  btn-secondary" ng-show="clicked" ng-click="edit()"><span class="fa fa-cogs"></span> Undo </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

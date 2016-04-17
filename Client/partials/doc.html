@@ -1,0 +1,80 @@
+<div class="container homepage">
+  <div class="row homepage-content" style="padding:0 10px;">
+    <div class="col-md-3 col-xs-12 col-sm-4 col-lg-3 aside">
+      <h3 class="">My documents</h3>
+      <div class="docs-cont">
+        <div class="media clearfix doc-thumb-container" ng-if="documenti.length != 0" ng-repeat="doc in documenti"  style="position:relative;" ng-click="goto('doc',doc.id)">
+          <div class="pull-left media-top">
+            <img class="media-object mg-responsive doc-img" src="css/img/document1.png" alt="...">
+          </div>
+          <div class="" style="padding:5px 0px;">
+            <h4 class="">{{doc.name}}</h4>
+            <span class="label label-primary tags" style="background-color:{{doc.category_colour}}">{{doc.category_name}}</span>
+          </div>
+          <span style="position:absolute; height:100%; width:8px; left:0; top:0;background-color:{{doc.category_colour}}; ">
+          </span>
+        </div>
+        <div ng-if="documenti.length == 0" class="media clearfix">
+          <div class="text-center">
+            <img class="media-object mg-responsive" style="max-width:130px; width:80%; margin: 30px auto;" src="css/img/document4.png" alt="...">
+          </div>
+          <div class="text-center text-muted " ng-click="">
+            <h2 class="">Empty</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 col-xs-12 col-sm-8 col-lg-9 center-block" style="position: relative; height: 100%; overflow: auto;">
+      <div>
+        <div class="alert alert-danger alert-dismissible fade in" role="alert" id="errorPanel" style="position:absolute; width:100%">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{error}}
+        </div>
+        <div class="document">
+          <a ng-href="/MDEF/Server_v02/toPDF.php?request={{doc.id}}">
+            <button type="submit" value="Go to Google" class="btn btn-success pull-right"><span class="glyphicon glyphicon-cloud-download" style="margin-right:5px;"></span> pdf</button>
+          </a>
+          <h1 ng-click="editTitle()" ng-show="!docClicked">{{doc.name}}</h1><input type="text" ng-keyup="saveTitle($event, doc.name)" class="form-control" ng-show="docClicked" ng-model="doc.name"/>
+
+          <p>Author: <i>{{doc.creator_name}} {{doc.creator_lastname}}</i></p>
+          <div class="text-cont">
+            <div class="new-node" id="node-{{nota.note_id}}" ng-repeat="nota in note" ng-mouseover="import = true" ng-mouseleave="import = false">
+              <fieldset ng-class="import ? 'doc-hover' : ''" style="position:relative;">
+                <span ng-show="import" class="glyphicon glyphicon-send fa-2x pull-right" title="import" ng-click="importNote(nota.note_id)" style="color:#ffffff;margin:0 10px;"></span>
+                <h3 ng-hide="nota.$$hashKey === selectedId" style="margin-top:2px">{{nota.title}}</h3><input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.title"/>
+                <div ng-switch="nota.type">
+                  <div ng-switch-when="code">
+                    <p ng-hide="nota.$$hashKey === selectedId">{{nota.description}}</p><input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.description"/>
+                    <pre>
+                      <div ng-hide="nota.$$hashKey === selectedId">{{nota.content}}</div>
+                    </pre>
+                    <input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.content"/>
+                  </div>
+                  <div ng-switch-when="link">
+                    <a ng-hide="nota.$$hashKey === selectedId" href={{nota.content}}>{{nota.description}}</a><input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.description"/>
+                    <input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.content"/>
+                  </div>
+                  <div ng-switch-when="image">
+                    <p ng-hide="nota.$$hashKey === selectedId">{{nota.description}}</p><input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.description"/>
+                    <img class="img-responsive" style="max-width:50%; max-height:300px;" ng-hide="nota.$$hashKey === selectedId" ng-src="../Server_v02/images/{{nota.content}}"/>
+                  </div>
+                  <div ng-switch-default>
+                    <i><h4 class="text-muted" ng-hide="nota.$$hashKey === selectedId">{{nota.description}}</h4></i><input type="text" class="form-control" ng-show="nota.$$hashKey === selectedId" ng-model="nota.description"/>
+                    <blockquote>
+
+                      <p style="white-space: pre-wrap;" ng-hide="nota.$$hashKey === selectedId">{{nota.content}}</p>
+                    </blockquote>
+                    <textarea class="form-control" ng-show="nota.$$hashKey === selectedId"  rows="4" ng-model="nota.content"></textarea>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

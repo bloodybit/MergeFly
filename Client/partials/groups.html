@@ -1,0 +1,105 @@
+<div class="container" style="height:100%; overflow:scroll;">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <h1 class="page-header">Groups
+        <span class="pull-right">
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" ng-click="showhide()"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+          </div>
+          </span>
+      </h1>
+    </div>
+
+
+      <div class="col-xs-12 col-sm-6 col-md-3" ng-repeat="group in groups" >
+        <div class="panel panel-default" ng-class="group.accepted != '0' ? '' : 'panel-warning-accepted'" >
+          <div class="panel-body warning">
+            <img ng-if="group.group_image == null" class="card-img-top img-responsive" src="css/img/place.png" alt="group.group_id">
+            <img ng-if="group.group_image != null" class="card-img-top img-responsive" ng-src="{{group.group_image}}" alt="group.group_id">
+            <div class="caption" style="height:120px;">
+              <h4 class="card-title">{{group.group_name | cut:true:50:' ...'}}</h4>
+              <p class="card-text">{{group.group_description | cut:true:100:' ...' }}</p>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button ng-click="view(group.group_id)" class="btn btn-secondary btn-sm">Go to group</button>
+            <div class="btn-group" role="group" style="margin-left:10%;" ng-show="group.accepted == '0'">
+              <button type="button" class="btn btn-secondary btn-success btn-xs" ng-click="acceptMembership(group.group_id)">Accept</button>
+              <button type="button" class="btn btn-secondary btn-danger btn-xs" ng-click="refuseMembership(group.group_id)">Refuse</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Add group Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="clearArray()">&times;</button>
+        <h4 class="modal-title">Add group</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <fieldset class="form-group col-xs-4 col-sm-3 col-md-4 text-center">
+            <div>
+              <img src="http://placehold.it/400x400" alt="" class="center-block img-circle img-responsive">
+              <div>
+                <p>Upload photo</p>
+                <input type="file" base-sixty-four-input class="form-control-file block well well-sm col-sm-12" id="exampleInputFile" ng-model="m.image">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="form-group col-xs-8 col-sm-9 col-md-8">
+            <label>Group name</label>
+            <input type="text" class="form-control" id="" ng-model="m.name" placeholder="Insert name">
+          </fieldset>
+
+          <fieldset class="form-group col-xs-8 col-sm-9 col-md-8">
+            <label for="group-description">Description</label>
+            <textarea class="form-control" id="group-description" ng-model="m.description" placeholder="Insert description" rows="4"></textarea>
+          </fieldset>
+
+          <fieldset class="form-group col-xs-8 col-sm-9 col-md-8">
+            <label>Add members</label>
+            <div>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="searchtext">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Search</button>
+                </span>
+              </div>
+              <div class="search-results">
+                <ul class="list-group" style="position:absolute;">
+                  <li class="list-group-item" ng-repeat="result in results" ng-click="pushToarray(result)">
+                    <div class="row">
+                      <img class="img-responsive img-circle" style="width:30px;display:inline-block;margin: 0 10px;" ng-src="{{result.image_profile}}">
+                      <p style="display: inline-block; margin: 0 10px;"><b>{{result.name}} {{result.lastname}}</b></p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <p>Invited users</p>
+            <div class="invited-list">
+              <span ng-repeat="partecipant in partecipantList">
+                <span style="display:inline-block;text-align: center;">
+                  <img class="img-responsive img-circle" style="width:30px;display:block;margin: 0 10px;" ng-src="{{partecipant.image_profile}}">
+                  {{partecipant.name}}<br />
+                  {{partecipant.lastname}}
+                </span>
+              </span>
+            </div>
+          </fieldset>
+          <div class="text-right">
+            <button class="btn btn-secondary" ng-click="creaGruppo(m,partecipantList)">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div><!-- Add group Modal -->

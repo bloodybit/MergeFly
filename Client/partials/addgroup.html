@@ -1,0 +1,61 @@
+<div class="container" style="height: 100%;margin-top:20px; overflow:scroll;">
+  <div class="row">
+    <div class="col-md-9" style="">
+      <div class="row">
+
+        <div class="col-xs-4 col-sm-3 text-center">
+          <img src="http://placehold.it/400x400" alt="" class="center-block img-circle img-responsive">
+          <div>
+            <p>Upload photo</p>
+            <input type="file" class="well well-sm col-sm-12">
+          </div>
+        </div>
+
+        <div class="col-xs-8 col-sm-8" style="border-left: solid 1px rgba(123,123,123,0.5);">
+          <button class="btn btn-success pull-right" ng-show="edit" ng-click="saveGroup()">Save</button>
+          <div class="" style="padding-top:15px;">
+            <form>
+              <fieldset class="form-group">
+                <label >Nome gruppo</label>
+                <input type="text" class="form-control" id="" placeholder="Inserisci titolo">
+              </fieldset>
+
+              <fieldset class="form-group">
+                <label for="group-description">Descrizione</label>
+                <textarea class="form-control" id="group-description" placeholder="Inserisci testo" rows="4"></textarea>
+              </fieldset>
+
+              <fieldset>
+                <label >Aggiungi membri</label>
+                <div>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Cerca</button>
+                      </span>
+                  </div>
+                  <div class="search-results">
+
+                  </div>
+
+                  <h4>Persone che hai invitato</h4>
+                  <div class="invited-list">
+                    nessuno
+                  </div>
+                </div>
+
+              </fieldset>
+
+
+              <div class="">
+                <button type="submit" ng-click="" class="btn btn-primary">Crea evento</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
