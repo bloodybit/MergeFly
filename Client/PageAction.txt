@@ -1,0 +1,91 @@
+SCEGLIERE UNO STANDARD PER SCRIVERE LE VARIABILI
+FARE TRIGGER CHE VERIFICANO DUPLICATI E DIRITTI DI SCRITTURA
+
+----------------- LOGIN ----------------- ok
+login( user_mail, user_password, lat, lng )
+
+
+----------------- REGISTER ----------------- ??
+addUser( TODO ) //da verificare
+
+
+----------------- HOME ----------------- ??
+getWebsiteInfo() // TODO
+
+
+----------------- EVENTS ----------------- ok
+userNearEvents(userid, latitude, longitude, dist)
+getUserEvents(userid, which) // opzioni which= ['next', 'past', 'all']
+searchEvents(userid, chars)
+
+
+----------------- EVENT ----------------- ok
+getEvent( event_id )
+getEventPartecipants( event_id )
+getEventDocs() // TODO
+
+if( creator ){
+  updateEvent( eventid, name, placeid, start, stop, creatorid, typeid, description, categoryid )
+  deleteEvent( userID, eventID ) // TODO
+  appPartecipant( eventID, userID ) // creatorid ?
+  deletePartecipant( eventID, userID ) // creatorid ?
+}
+
+
+----------------- CREATEEVENT -----------------
+evento
+posto
+invitati
+
+
+----------------- DOCUMENTS ----------------- ??
+getUserDoc( user_id ) // mi servono anche gli id degli eventi
+getDocContent( doc_id )
+getEventDocs( eventid ) // TODO
+
+deleteNode( TODO ) // userid, docid, noteid
+updateNote( TODO ) ???? // problema di logica: una nota appartiene a più nodi, se la modifico viene modiifcata in tutti i documenti
+createNode( noteID, docID, header, subheader )
+cloneNode( TODO )
+
+
+----------------- DOCUMENT LIVE ----------------- ??
+createDocument( userid, name, eventid, public )
+getEventLastNotes( eventid, userid )
+
+{
+  // TODO si può mettere in una sola funzione?
+  addNote(id, type, content, description)
+  createNode( noteID, docID, header, subheader )
+}
+
+getDocContent( doc_id )
+
+
+----------------- GROUPS ----------------- ok
+getUserGroups( userid )
+searchGroups( userid, chars )
+updateGroup(...) se sei admin
+getGroupDoc( userid, groupid ) idem sotto con doc
+getGroupEvents( userid, groupid ) //sono gli eventi pubblici e privati ai quali i membri del gruppo partecipano e sono invitato
+getGroupMembers( groupid )
+
+acceptGroupInvitation( userid )
+
+if(admin){
+  deleteMember( memberid, groupid )
+  addMember( userid, groupid )
+}
+
+
+----------------- CREATEGROUP ----------------- ok
+createGroup( name, imagelink, description, idAdmin )
+addMember( iduser, idgroup ) //loop
+searchUser( text )
+
+
+----------------- PROFILE ----------------- ok
+getUserInfo( userid )
+updateUser( TODO )
+getNumDoc( userid )
+getNumGroup( userid )

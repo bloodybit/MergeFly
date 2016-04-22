@@ -1,0 +1,125 @@
+<div class="container homepage" style="height:100%; width:100%;">
+  <div class="row homepage-content" style="padding:0 10px;">
+    <div class="col-md-3 col-sm-3 aside">
+      <h3>Groups
+        <!-- <span class="pull-right">
+          <button class="btn btn-secondary btn-xs" href="javascript:window.location.reload(true)"><span class="glyphicon glyphicon-repeat"></span></button>
+          <button class="btn btn-secondary btn-xs" ng-click="showhide()"  data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span></button>
+        </span> -->
+      </h3>
+      <div class="doc-cont groups-list" >
+        <div class="media clearfix doc-thumb-container" ng-repeat="group in groups">
+          <div class="pull-left media-top">
+            <img ng-if="group.group_image == null" class="media-object img img-responsive doc-img" src="css/img/place.png" alt="group.group_id">
+            <img ng-if="group.group_image != null" class="media-object img img-responsive doc-img" ng-src="{{group.group_image}}" alt="group.group_id">
+          </div>
+          <div class="" ng-click="goto('group', group.group_id)">
+            <h4 class="">{{group.group_name}}</h4>
+            <p class="small" style="display:block;">{{group.group_description | limitTo:150 }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 col-sm-9 main-content">
+      <div class="">
+        <div ng-hide="cane" class="col-md-12 col-sm-9 text-center">
+          <img class="media-object mg-responsive " src="css/img/group.png" alt="..." style="width:200px;margin:100px auto 10px auto;">
+          <h4 style="color:#ffffff;">
+            No group selected.
+          </h4>
+        </div>
+
+        <div ng-show="cane">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="row">
+                <div class="col-md-12 col-sm-12">
+                  <button class="btn btn-secondary" ng-click="leaveGroup()">Leave</button>
+                  <button class="btn btn-secondary pull-right" ng-show="edit" ng-click="editGroup()">Undo</button>
+                  <button class="btn btn-secondary pull-right" ng-show="edit" ng-click="saveChanges(gruppo)">Save</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-4 text-center">
+                  <img ng-if="gruppo.image == null" src="http://api.randomuser.me/portraits/men/49.jpg" alt="" class="center-block img img-responsive">
+                  <img ng-if="gruppo.image != null" ng-src="{{gruppo.image}}" alt="" class="center-block img img-responsive">
+                  <div ng-show="edit">
+                    <p>Upload different photo</p>
+                    <input type="file" base-sixty-four-input class="form-control-file block well well-sm col-sm-12" id="exampleInputFile" ng-model="gruppo.content">
+                  </div>
+
+                  <button  ng-if="hasRights" class="btn btn-secondary btn-block" ng-click="editGroup()" ng-show="!edit"><span class="fa fa-cogs"></span>Edit</button>
+                </div>
+
+                <div class="col-xs-12 col-sm-7 col-md-8">
+                  <h2 ng-hide="edit">{{gruppo.name}} </h2>
+                  <input type="text" class="form-control" ng-model="gruppo.name" ng-show="edit" aria-label="">
+                  <p><strong>Creation date: </strong> {{gruppo.creationdate}}</p>
+                  <p ng-hide="edit"><strong>Description: </strong> {{gruppo.description}}
+                    </p><textarea class="form-control" ng-show="edit" id="event-description" ng-model="gruppo.description" placeholder="Inserisci testo" rows="4"></textarea>
+                    <p><strong>Admin: </strong> {{admin.name}} {{admin.lastname}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="group-members" style="clear:both;">
+                      <h3>Members <button class="btn btn-xs" ng-show="edit"><span class="glyphicon glyphicon-pencil" ></span></button></h3>
+                      <div  class="group-members-list">
+                        <div style="display:inline-block;text-align: center;" ng-repeat="p in membri">
+                          <img class="img-responsive img-circle" style="width:50px;display:block;margin: 0 10px;" ng-src="{{p.image_profile}}">
+                          <h5 class="small">{{p.name}}<br /> {{p.lastname}}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="group-events" style="clear:both;">
+                      <h3>Events</h3>
+                      <div class="group-events-list" ng-repeat="event in events" style="width:80px;" ng-click="goto('event',event.id)">
+                        <div  style="display:inline-block;text-align: center;">
+                          <!-- <img class="img-responsive" style="width:50px;display:block;margin: 0 10px;" src="css/img/place.png"> -->
+                          <span class="glyphicon glyphicon-calendar fa-4x"></span>
+                          <p class="">{{event.name}}</p>
+                        </div>
+                      </div>
+                      <div class="group-events-list" ng-show="events.length == 0">
+                        <div  style="display:inline-block;text-align: center;">
+                          <img class="img-responsive" style="width:50px;display:block;margin: 0 10px;" src="css/img/place.png">
+                          <h5 class="small">No events yet...</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="group-documents" style="clear:both;">
+                      <h3>Documents
+                      </h3>
+                      <div class="group-documents-list" ng-repeat="doc in docs" ng-click="goto('doc', doc.id)">
+                        <div style="display:inline-block;text-align: center;">
+                          <img class="img-responsive" style="width:50px;display:block;margin: 0 10px;"  src="css/img/document.png">
+                          <h5 class="small">{{doc.name}}</h5>
+                        </div>
+                      </div>
+                      <div class="group-documents-list" ng-show="docs.length == 0">
+                        <div style="display:inline-block;text-align: center;">
+                          <img class="img-responsive" style="width:50px;display:block;margin: 0 10px;"  src="css/img/document4.png">
+                          <h5 class="small">No documents yet...</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

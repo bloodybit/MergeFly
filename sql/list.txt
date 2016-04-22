@@ -1,0 +1,94 @@
+model.action(jsonData);
+
+List of funcitons
+
+    o- login( user_mail, user_password, lat, lng ) > User or -1
+
+/* SEARCH */
+    o- (search)event.userNearEvents( userid, latitude, longitude, dist )    ----fatto
+    o- event.getUserEvents( userid, which )                                 ----fatto
+    o- (search) event.searchEvents( userid, chars )
+
+    - (search) event.suggestedEvents( lat, lng ) > List of events
+    - (search) place.suggestedPlaces( lat, lng ) > List of places
+    - (search) user.searchUser( text ) > List of users (id, name, lastname)
+    - (search) group.searchGroup( text ) > List of Groups
+
+
+/* SELECT */
+    - user.getUser( user_id ) > User or -1
+    - event.getEvents() > List of all events
+    - event.getEvent( event_id ) > Event or -1
+    - event.getEventPartecipants( event_id ) > List of Partecipants
+
+
+    - user.getUserDocs( user_id ) > List of docs or -1
+    - user.getUserDoc() >
+    - document.getDocContent( doc_id ) > List of notes and nodes
+    * note.getNote(note_id)
+
+    - group.getGroupMembers( group_id ) > List of Members
+    * group.getGroupInfo( group_id ) > Group
+
+    * category.getCategories()
+    * category.getCategory(cat_id)
+    * place.getPlace(place_id)
+
+
+/* INSERT */
+    - group.createGroup( name, imagelink, description, idAdmin )
+    - user.createUser ( name, lastname, born, type, profilepic, lat, lng, password, mail )
+    * document.createDocument( userid, name, eventid, public )
+    * member.addMember( iduser, idgroup )
+    * partecipation.addPartecipant( eventid, userid )
+    * event.addEvent( name, placeid, start, stop, creatorid, typeid, description, categoryid )
+    * place.addPlace( lat, lng, name, address, cap, city, nation ) > id
+    * event.addEventAndPlace( name, start, stop, creatorid, typeid, description, categoryid, lat,lng,name,address,cap, city, nation );
+    * category.addCategory( id, name, description, colour )
+    * note.addNote( id, type, content, description )
+    * node.createNode( noteID, docID, header, subheader )
+    * group.addGroupToEvent( groupID, eventID )
+
+/* UPDATE */
+    - position.updatePosition( user_id, lat, lng )
+    * user.updateUser( userid, name, lastname, born, type, profilepic, lat, lng, password, mail )
+    * group.updateGroup( groupid, name, imagelink, description, idAdmin )
+    * event.updateEvent( eventid, name, placeid, start, stop, creatorid, typeid, description, categoryid )
+    * category.updateCategory( categoryid, name, description, colour )
+    * partecipation.updatePartecipation( eventid, userid, status )
+    * document.updateDoc( id, name, public )
+    * note.updateNote( id, type, content, description )
+
+/* DELETE */
+    - user.deleteUser( userID ) ( setta il delated a true )
+    - note.deleteNode( NoteID, DocumentID ) (se non ci sono più nodi viene cancellato definitivamente anche dalla tabella nodi)
+    - event.deleteEvent( userID, eventID )
+    - group.deleteGroup( userID, groupID )
+    - document.deleteDocument( userID, docID )
+    - member.deleteMember( memberID, groupID, userID)
+
+
+
+
+dove si accetta gruppo?
+dove si accetta invito ad evento?
+
+timeout(3000 ms, pesca note e mettile in cima);
+
+aggiungere trigger per il doppio check della mail
+
+accettare invito a gruppo e ad evento.
+tab richieste gruppi
+tab richieste eventi
+add document button (today)
+
+
+
+
+
+1 - settare le dipendenze delle tabelle e le modifiche a cascata
+2 - pensare alla chiave primaria della categoria
+3 - pensare al valore di default della categoria
+
+4 - Chi crea un evento ci partecipa!
+5 - Controllare chi crea un docuemnto se ha il diritto di crearlo

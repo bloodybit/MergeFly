@@ -1,0 +1,164 @@
+<div>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="">
+        <form name="myForm" id="myForm">
+          <fieldset class="form-group col-md-12">
+            <label >Event title</label>
+            <input type="text" class="form-control" ng-model="event.name" id="" placeholder="Insert title..." required>
+          </fieldset>
+
+          <fieldset class="form-group col-md-12">
+            <label for="event-description">Description</label>
+            <textarea class="form-control" id="event-description" ng-model="event.description" placeholder="Insert description text..." rows="4" required></textarea>
+          </fieldset>
+
+          <fieldset class="form-group col-md-6">
+            <label>Start date</label>
+            <input type="date" class="form-control" ng-model="event.startdate" id="" placeholder="Date" required>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class="form-group col-md-6">
+          <label>Stop date</label>
+          <input type="date" class="form-control" ng-model="event.stopdate" id="" placeholder="Data" required>
+        </fieldset>
+      </fieldset>
+
+      <fieldset class="clearfix col-md-12" style="padding:0px;">
+        <legend style="padding-left:15px;">Place</legend>
+        <fieldset class="form-group col-md-12">
+          <label>Place name</label>
+          <input type="text" class="form-control" id="" ng-model="searchPlace" placeholder="Place name or address..." required>
+          <div class="search-results">
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat="place in places" ng-click="setPlace(place)">
+                  <div ng-if="place.noPlace === true">
+                    <b>{{place.message}} <span class="glyphicon glyphicon-plus"></span></b>
+
+                  </div>
+                  <div ng-if="place.noPlace === undefined">
+                    <b>{{place.name}}</b>
+                    <p>{{place.address+", "+place.city+", "+place.cap+", "+place.nation}}</p>
+                  </div>
+
+              </li>
+            </ul>
+          </div>
+        </fieldset>
+        <div ng-show="newPlace">
+          <fieldset class="form-group col-md-12">
+            <label>Address</label>
+            <input ng-model="new.address" class="form-control" placeholder="Indirizzo" required>
+          </fieldset>
+
+          <fieldset class="form-group col-md-6">
+            <label>City</label>
+            <input ng-model="new.city" type="text" class="form-control col-md-6" id="" placeholder="Città" required>
+          </fieldset>
+
+          <fieldset class="form-group col-md-6">
+            <label>Cap</label>
+            <input type="text" class="form-control" ng-model="place.cap" id="" placeholder="Cap" required>
+          </fieldset>
+
+          <fieldset class="form-group col-md-12">
+            <label>Country</label>
+            <input type="text" class="form-control" ng-model="place.nation" id="" placeholder="Nation" required>
+          </fieldset>
+        </div>
+
+
+      </fieldset>
+
+      <fieldset class="form-group col-md-6">
+        <label>Category: </label>
+        <select class="c-select" ng-model="event.category_name" required>
+          <option ng-repeat="category in categories" value="{{category.name}}">{{category.name}}</option>
+
+        </select>
+
+      </fieldset>
+      <fieldset class="form-group col-md-6">
+        <label>Event type: </label>
+        <select class="c-select" ng-model="event.event_type" required>
+          <option value="public">Public</option>
+          <option ng-show="premium" value="private">Private</option>
+        </select>
+      </fieldset>
+
+      <fieldset class="col-md-12 clearfix">
+      </fieldset>
+
+      <div class="col-md-12 clearfix">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">Invite</button>
+        <button type="button" class="btn btn-secondary pull-right" ng-disabled="" ng-click="createPlace()" >Create event</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+<div class="col-md-6" map-lazy-load="https://maps.google.com/maps/api/js">
+
+  <ng-map default-style="true" center="newPlace? {{place.address+' '+place.city}} : {{selectedPlace.latitude+', '+selectedPlace.longitude}}" zoom="14">
+    <marker ng-if="newPlace" position="{{place.address+' '+place.city}}" title="{{place.address}}"></marker>
+    <marker ng-if="!newPlace" position="{{selectedPlace.latitude+', '+selectedPlace.longitude}}" title="{{selectedPlace.address}}"></marker>
+  </ng-map>
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="clearArray()">&times;</button>
+        <h3 class="modal-title">Add members</h3>
+      </div>
+      <div class="modal-body">
+        <fieldset>
+          <div>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for..." ng-model="searchUser">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Search</button>
+              </span>
+            </div>
+            <div class="search-results">
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="result in results" ng-click="pushToarray(result)">
+                  <div class="row">
+                      <img class="img-responsive img-circle" style="width:30px;display:inline-block;margin: 0 10px;" ng-src="{{result.image_profile}}">
+                      <p style="display: inline-block; margin: 0 10px;"><b>{{result.name}} {{result.lastname}}</b></p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <h4>Invited users</h4>
+            <div class="invited-list" >
+                <span ng-repeat="partecipant in partecipantList">
+                  <span style="display:inline-block;text-align: center;">
+                    <img class="img-responsive img-circle" style="width:50px;display:block;margin: 0 10px;" ng-src="{{partecipant.image_profile}}">
+                    <b>{{partecipant.name}}</b><br />
+                    <b>{{partecipant.lastname}}</b>
+                  </span>
+
+                </span>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</div>
