@@ -2,9 +2,9 @@
 
 class Database extends PDO{
 
-    private $host ="mysql:host=polleg.it.mysql;dbname=polleg_it";
-    private $user = "polleg_it";
-    private $pass = "SFnvYe4d";
+    private $host ="mysql:host=*.mysql;dbname=*";
+    private $user = "*";
+    private $pass = "*";
     private $dbHandle = null;
     private $results = null;
     private $errors = null;
